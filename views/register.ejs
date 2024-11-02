@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archita's Task Pro</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap">
+    <link rel="icon" href="/icon.ico" type="image/x-icon">
+</head>
+<body>
+    <h1>Archita's Task</h1>
+    <p>Your Hub for Ultimate Task Management</p>
+    <div class="container">
+        <h2>Register</h2>
+        <div id="registerError" style="color:red;"></div>
+        <form id="registerForm" onsubmit="registerUser(); return false;">
+            <input type="text" name="username" id="registerUsername" placeholder="Username" required><br>
+            <input type="password" name="password" id="registerPassword" placeholder="Password" required><br>
+            <button type="submit">Register</button>
+        </form>
+        <p>Aleady have an account?<a href="/login">Login here</a></p>
+    </div>
+
+    <script>
+        async function registerUser(){
+            const username = document.getElementById("registerUsername").value;
+            const password = document.getElementById("registerPassword").value;
+            const registerError=document.getElementById("registerError");
+            try{
+                const response = await fetch("/register", {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify({username,password})
+                });
+                if(!response.ok){
+                    const errorText= await response.text();
+                    throw new Error(errorText);
+                }
+                window.location.href='/login';
+            }catch(error){
+                registerError.textContent=error.message;
+            }
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
