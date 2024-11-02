@@ -7,7 +7,7 @@ const session = require('express-session');
 const bcrypt = require('bcryptjs');
 const User = require('./models/user');
 const Todo = require('./models/todo');
-// this is now a git repository
+// I have added this comment
 
 const app = express();
 const PORT = process.env.PORT || 3000;
